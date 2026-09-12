@@ -1,0 +1,229 @@
+@import url("tokens.css");
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: var(--lh-heading);
+  margin: 0;
+  letter-spacing: .01em;
+}
+p { margin: 0; }
+.wrap { width: min(var(--page-max), 100% - 40px); margin-inline: auto; }
+:focus-visible { outline: 3px solid var(--brand); outline-offset: 3px; }
+
+/* デモ告知。公式サイトと誤認されないための帯。納品時は build-pages.py の DEMO で消える */
+.demo-banner {
+  background: var(--sun);
+  border-bottom: 2px solid var(--ink);
+  font-size: var(--fs-small);
+  padding: var(--sp-1) 20px;
+}
+.demo-banner p { max-width: var(--page-max); margin-inline: auto; }
+.demo-banner a { color: var(--barn); font-weight: 700; }
+
+/* ヘッダー */
+.site-header {
+  position: sticky; top: 0; z-index: 10;
+  background: var(--ground);
+  border-bottom: 2px solid var(--barn);
+}
+.header-inner {
+  width: min(var(--page-max), 100% - 40px); margin-inline: auto;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 60px; gap: var(--sp-2);
+}
+.brand { font-family: var(--font-display); font-size: 1.1rem; text-decoration: none; color: var(--barn); }
+.site-nav { display: flex; gap: var(--sp-3); font-size: .92rem; font-weight: 700; }
+.site-nav a { text-decoration: none; color: var(--barn); }
+.site-nav a:hover { color: var(--brand); }
+@media (max-width: 720px) { .site-nav { display: none; } }
+
+/* ヒーロー */
+.hero { border-bottom: 2px solid var(--barn); overflow: hidden; }
+.hero .wrap {
+  display: grid; grid-template-columns: 1fr auto;
+  gap: clamp(24px, 5vw, 72px); align-items: center;
+  padding: clamp(40px, 7vw, 88px) 0;
+}
+.hero h1 { font-size: var(--fs-hero); line-height: 1.32; color: var(--barn); }
+.hero h1 span { display: block; }
+.lede { margin-top: var(--sp-3); font-size: 1.05rem; max-width: 30em; }
+.hero-cta { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 12px; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 14px 24px; text-decoration: none; font-weight: 700; font-size: .95rem;
+  border: 2px solid var(--barn); border-radius: 4px;
+  transition: background-color .15s, color .15s;
+}
+.btn-solid { background: var(--barn); color: var(--ground-raised); }
+.btn-solid:hover { background: var(--barn-deep); }
+.btn-ghost { color: var(--barn); background: var(--ground-raised); }
+.btn-ghost:hover { background: var(--sun); }
+
+/* 牛乳瓶のキャップ。ページで唯一、動くもの */
+.cap-wrap { width: clamp(240px, 28vw, 360px); aspect-ratio: 1; justify-self: center; }
+.cap {
+  width: 100%; height: 100%;
+  filter: drop-shadow(0 12px 18px var(--shadow));
+  animation: drop var(--dur-drop) var(--ease-drop) both;
+}
+@keyframes drop {
+  from { transform: translateY(-40px) scale(1.04); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+@media (max-width: 720px) {
+  .hero .wrap { grid-template-columns: 1fr; }
+  .cap-wrap { width: min(60%, 240px); order: -1; }
+}
+
+/* 本日の営業。JSが無い場合は既定の文言が出る */
+.today { background: var(--barn); color: var(--ground-raised); }
+.today .wrap {
+  display: flex; flex-wrap: wrap; align-items: baseline;
+  gap: var(--sp-1) var(--sp-3); padding: 14px 0; font-size: .98rem;
+}
+.today strong { font-family: var(--font-display); font-weight: 400; font-size: 1.15rem; letter-spacing: .02em; }
+.today .status { font-weight: 700; color: var(--sun); }
+.today .note { font-size: var(--fs-small); opacity: .85; }
+
+/* セクション共通 */
+section { padding: clamp(56px, 8vw, 104px) 0; }
+.sec-title { font-size: var(--fs-section); color: var(--barn); margin-bottom: var(--sp-1); }
+.sec-lead { color: var(--ink-mid); max-width: 40em; margin-bottom: clamp(28px, 4vw, 48px); }
+
+/* 要確認の注記。店側への確認が済むまで消さない */
+.note-check {
+  margin-top: var(--sp-2);
+  padding: 12px 16px;
+  border-left: 4px solid var(--brand);
+  background: var(--ground-raised);
+  font-size: var(--fs-small);
+  color: var(--ink-mid);
+}
+
+/* メニュー */
+.menu-list { border-top: 2px solid var(--barn); }
+.menu-row {
+  display: grid; grid-template-columns: minmax(10em, 1fr) 2fr;
+  gap: 12px var(--sp-4); padding: 26px 0;
+  border-bottom: 1px solid var(--rule); align-items: start;
+}
+.menu-row h3 { font-size: var(--fs-item); color: var(--barn); }
+.menu-row .sub { font-size: .9rem; color: var(--brand); font-weight: 700; margin-top: 4px; }
+.menu-note { margin-top: var(--sp-2); font-size: var(--fs-small); color: var(--ink-mid); }
+@media (max-width: 640px) { .menu-row { grid-template-columns: 1fr; gap: 6px; } }
+
+/* ミルクのこと */
+.milk { background: var(--ground-raised); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.milk .wrap { display: grid; grid-template-columns: auto 1fr; gap: clamp(28px, 5vw, 72px); align-items: start; }
+.milk figure { margin: 0; }
+.milk img { border: 2px solid var(--barn); }
+.milk figcaption { font-size: .85rem; color: var(--ink-mid); margin-top: 10px; max-width: 200px; }
+.milk p + p { margin-top: 14px; }
+.milk .text { max-width: var(--measure); }
+@media (max-width: 720px) { .milk .wrap { grid-template-columns: 1fr; } }
+
+/* 営業時間。時刻表の形 */
+.tt {
+  width: 100%; border-collapse: collapse;
+  border-top: 2px solid var(--barn); border-bottom: 2px solid var(--barn);
+  font-variant-numeric: tabular-nums;
+}
+.tt th, .tt td { padding: 16px 14px; text-align: left; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.tt thead th { font-size: .85rem; color: var(--ink-mid); font-weight: 700; border-bottom: 1px solid var(--barn); }
+.tt tbody th { font-family: var(--font-display); font-weight: 400; font-size: 1.1rem; color: var(--barn); white-space: nowrap; }
+.tt td.time { font-weight: 700; white-space: nowrap; }
+.tt td.rest { color: var(--ink-mid); font-size: .92rem; }
+.tt tr.now th, .tt tr.now td { background: var(--sun); }
+.tt tr.now th::before { content: "▶ "; color: var(--brand); font-size: .8em; }
+.hours-foot { margin-top: var(--sp-2); font-size: var(--fs-small); color: var(--ink-mid); }
+.hours-foot a { color: var(--barn); }
+@media (max-width: 640px) {
+  .tt thead { display: none; }
+  .tt, .tt tbody { display: block; }
+  .tt tr {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2px 12px;
+    padding: 14px 10px; border-bottom: 1px solid var(--rule);
+  }
+  .tt th, .tt td { padding: 0; border: 0; }
+  .tt tbody th { grid-column: 1 / -1; margin-bottom: 4px; }
+  .tt td.time::before { content: "平日 "; color: var(--ink-mid); font-weight: 400; font-size: .85em; }
+  .tt td.time:nth-child(3)::before { content: "土日祝 "; }
+  .tt td.time[colspan]::before { content: ""; }
+  .tt td.rest, .tt td[colspan] { grid-column: 1 / -1; }
+  .tt td.rest { margin-top: 4px; }
+  .tt td.time { white-space: normal; }
+  .tt tr.now { background: var(--sun); }
+  .tt tr.now th, .tt tr.now td { background: transparent; }
+}
+@media (max-width: 420px) {
+  .tt tr { grid-template-columns: 1fr; }
+}
+
+/* 線路の帯。横須賀線の車体色（紺とクリーム）ではなく、この店の屋根と木の色で引く */
+.line { height: 18px; background: var(--roof); position: relative; }
+.line::after { content: ""; position: absolute; left: 0; right: 0; top: 6px; height: 6px; background: var(--leaf); }
+
+/* 店舗・アクセス。写真は元サイズ（最大400px）を超えて引き伸ばさない */
+.shop .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 72px); align-items: start; }
+.shop p + p { margin-top: 14px; }
+.shop .text { max-width: var(--measure); }
+.photos { display: flex; flex-wrap: wrap; gap: var(--sp-1); align-content: start; }
+.photos img { border: 2px solid var(--barn); }
+.photos-lead { flex-basis: 100%; }
+.photos img { flex: 0 1 auto; min-width: 0; }
+.addr { margin: var(--sp-3) 0 0; border-top: 2px solid var(--barn); }
+.addr div { display: grid; grid-template-columns: 5em 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--rule); }
+.addr dt { color: var(--ink-mid); font-weight: 700; font-size: .9rem; }
+.addr dd { margin: 0; }
+.addr a { color: var(--barn); font-weight: 700; text-underline-offset: 3px; }
+.shop-cta { margin-top: var(--sp-3); display: flex; flex-wrap: wrap; gap: 12px; }
+.map { margin-top: var(--sp-4); }
+.map img { border: 2px solid var(--barn); }
+.map figcaption { font-size: .85rem; color: var(--ink-mid); margin-top: 10px; }
+@media (max-width: 720px) { .shop .wrap { grid-template-columns: 1fr; } }
+
+/* フッター */
+.site-footer { padding: 32px 0 108px; font-size: var(--fs-small); color: var(--ink-mid); border-top: 2px solid var(--barn); }
+.footer-inner { width: min(var(--page-max), 100% - 40px); margin-inline: auto; display: flex; flex-wrap: wrap; gap: var(--sp-1) var(--sp-3); justify-content: space-between; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.footer-links a { text-decoration: none; }
+.footer-links a:hover { text-decoration: underline; }
+@media (min-width: 721px) { .site-footer { padding-bottom: 40px; } }
+
+/* スマホの固定バー。電話と地図 */
+.bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+  display: none; grid-template-columns: 1fr 1fr; gap: var(--sp-1);
+  padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+  background: var(--ground); border-top: 2px solid var(--barn);
+}
+.bar a {
+  display: flex; align-items: center; justify-content: center;
+  padding: 13px 10px; text-decoration: none; font-weight: 700; font-size: .95rem;
+  border: 2px solid var(--barn); border-radius: 4px;
+}
+.bar .call { background: var(--barn); color: var(--ground-raised); }
+.bar .map-link { color: var(--barn); }
+@media (max-width: 720px) { .bar { display: grid; } }
+
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .cap { animation: none; }
+  .btn { transition: none; }
+}

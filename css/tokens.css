@@ -1,0 +1,65 @@
+/* アイス工房メーリア デザイントークン
+
+   色の根拠（設計書 §5）:
+     既存サイトの写真から採取した色だけを使う。業種の一般イメージ
+     （アイス屋だからパステル）からは作らない。
+       --barn   小屋の外壁の赤茶（top_photo0 / annai01 の主要色 #472E2C〜#5A312A）
+       --brand  既存ロゴの紫（logo.png の主要色 #421084）
+       --sun    既存ロゴの黄（#FFFF80）を、文字の地として使える明度に落としたもの
+       --ground 日の当たるウッドデッキのベンチ（merria1 の #F5F0D7）を白に寄せたもの
+       --leaf   テラスの木の緑（top_photo0 の #70814C）
+       --roof   瓦屋根の色（annai06 の #A57137）。帯の装飾にだけ使う。文字には使わない
+
+   コントラスト実測値は test/lib/check-contrast.py が機械的に検証する。
+   --roof と --leaf は明るい地の上では 4.5 に届かないため、文字色に使わない
+   （check-contrast.py の FORBIDDEN で固定）。
+
+   要確認: 写真はすべて既存サイトの掲載画像（最大400px）。撮り直し後、
+   実際の写真に含まれる色を採取してこのファイルの色トークンのみを差し替える。 */
+:root {
+  /* 色 */
+  --ground: #FAF7EF;             /* 生成り。ベンチの日向 */
+  --ground-raised: #FFFFFF;      /* 浮かせる面（牛乳キャップ） */
+  --ink: #2B1F1B;                /* 小屋の影の色。純黒は使わない */
+  --ink-mid: #6A5A52;            /* 補助文字 */
+  --barn: #5A312A;               /* 小屋の外壁。主役の色 */
+  --barn-deep: #472E2C;          /* 押下時 */
+  --brand: #421084;              /* ロゴの紫 */
+  --sun: #FFF3A6;                /* ロゴの黄。「本日」の行の地 */
+  --leaf: #70814C;               /* テラスの木。帯の装飾のみ */
+  --roof: #A57137;               /* 瓦屋根。帯の装飾のみ */
+  --rule: #D9CFC0;               /* 罫線 */
+  --shadow: rgba(43, 31, 27, .18);
+
+  /* 書体。ロゴは太い丸ゴシック系なので、見出しも太いゴシックで受ける。
+     本文は読みやすさ優先の UD ゴシック */
+  --font-display: 'Dela Gothic One', 'BIZ UDPGothic', sans-serif;
+  --font-body: 'BIZ UDPGothic', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', sans-serif;
+
+  /* 文字サイズ */
+  --fs-hero: clamp(2rem, 4.4vw, 3.5rem);
+  --fs-section: clamp(1.5rem, 2.8vw, 2.1rem);
+  --fs-item: 1.3rem;
+  --fs-body: 16px;
+  --fs-small: .88rem;
+
+  /* 行間 */
+  --lh-body: 1.85;
+  --lh-heading: 1.3;
+
+  /* 版面 */
+  --measure: 34em;
+  --page-max: 1120px;
+
+  /* 余白 */
+  --sp-1: 8px;
+  --sp-2: 16px;
+  --sp-3: 24px;
+  --sp-4: 40px;
+  --sp-5: 64px;
+  --sp-6: 96px;
+
+  /* 動き。ヒーローのキャップが1回だけ置かれる */
+  --dur-drop: .7s;
+  --ease-drop: cubic-bezier(.2, .9, .3, 1.2);
+}
